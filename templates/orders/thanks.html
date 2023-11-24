@@ -1,0 +1,12 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+
+{% block thanks %}
+  <h1 class="thanks-h1">Thank you for your order, we have sent you an email to:</h1>
+  <h2 class="thanks-h2">{{email}}</h2>
+  <div class="bill-div">
+    <a href="/orders/bill" class="btn-detail-bill">PAY</a>
+  </div>
+{% endblock thanks %}

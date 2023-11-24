@@ -1,0 +1,28 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+
+{% block detail %}
+<div class="detail parent-div-add-btn">
+	<div class="detail-in detail-in-left">
+		<img src="/media/{{target_product.photo}}" class="detail_photo">
+	</div>
+	<div class="detail-in detail-in-right">
+				<h2 class="h2-detail product-detail-name">{{target_product.name}}</h2>
+				<div class="border-gradient"></div>
+				<h1 class="title-up inline-1" style="color: #BD1EFE;">Category: </h1><p class="title-up inline-1">{{target_product.category}}</p><br>
+				<h1 class="title-up inline-2" style="color: #BD1EFE;">Producer: </h1><p class="title-up inline-2">{{target_product.producer}}</p><br>
+				<h1 class="title-up inline-3" style="color: #BD1EFE;">Color: </h1><p class="title-up inline-3">{{target_product.color}}</p><br>
+				<h1 class="title-up inline-4" style="color: #BD1EFE;">Size: </h1><p class="title-up inline-4">{{target_product.size}}</p><br>
+				<h1 class="title-up inline-5" style="color: #BD1EFE;">About: </h1><p class="title-up inline-5">{{target_product.about}}</p><br>
+	      		<h4 class="h4-detail" style="color:#BD1EFE">{{target_product.price}}$<span>{{target_product_double_price}}$</span></h4>
+					  <input type="hidden" value="{{target_product.price}}">
+                      <input type="hidden" value="{{target_product.id}}">
+		<a href="#" class="btn-detail add-to-cart-btn"><i class="uil uil-shopping-cart icon"></i>Add To Cart</a>
+	</div>
+</div>
+
+
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock detail %}

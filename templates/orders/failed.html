@@ -1,0 +1,12 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+
+{% block failed %}
+    <h1 class="thanks-h1">Something went wrong</h1>
+  <h2 class="thanks-h2">please try again later or contact technical support</h2>
+  <div class="bill-div">
+    <a href="/orders/" class="btn-detail-bill">BACK</a>
+  </div>
+{% endblock failed %}

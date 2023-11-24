@@ -1,0 +1,25 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+
+{% block sign_up %}
+<h1 class="sign-up-top">SIGN UP</h1>
+<div class="sign_up_form">
+    <form action="/accounts/sign_up" method="post">
+        {% csrf_token %}
+            {% for f in form %}
+            <p class="sign-up-p">
+              <label class="form-label" for="{{ f.id_for_label }}">
+                  {{f.label}}
+              </label>
+                {{ f }}
+            </p>
+            <div class="form-error">
+                {{ f.errors }}
+            </div>
+            {% endfor %}
+        <input type="submit" value="SignUp" class="sign-up-btn">
+    </form>
+</div>
+{% endblock sign_up %}

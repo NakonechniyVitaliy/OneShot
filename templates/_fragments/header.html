@@ -1,0 +1,134 @@
+{% load static %}
+
+<div class="header">
+    <div class="header_container_1">
+        <div class="header_container_2">
+            <i class="fa fa-phone header_icon icon-text-header" aria-hidden="true"></i>
+            <h1 class="header_h1 icon-text-header"> +170-977-69-34</h1>
+        </div>
+
+        <div class="header_container_2">
+            {% if not user.is_authenticated %}
+                 <i class="fa fa-user header_icon icon-text-header" aria-hidden="true" ></i>
+                 <a href="/accounts/sign_in" class="header_h1"> Status - Guest </a>
+            {% else %}
+                <i class="fa fa-user header_icon icon-text-header" aria-hidden="true" ></i>
+                <a href="/accounts/profile" class="header_h1 icon-text-header"> Welcome, {{ user.username }}</a>
+            {% endif %}
+        </div>
+
+        <div class="header_container_2">
+            <i class="fa fa-location-arrow header_icon icon-text-header" aria-hidden="true"></i>
+            <h1 class="header_h1 icon-text-header"> New York, Fulton St</h1>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="user-id" value="{{ user.id }}">
+
+<div class="container">
+  <div class="logo element-animation">
+     <img id='logo' src="{% static 'img/NewLogo.png' %}" alt="">
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/orders/">Cart</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="/catalog">Catalog</a>
+        </li>
+
+    {% if not user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/sign_up" tabindex="-1" aria-disabled="true">SIGN UP</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/sign_out" tabindex="-1" aria-disabled="true">SIGN OUT</a>
+        </li>
+    {% endif %}
+      </ul>
+
+
+<div style="margin-right:4vw;">
+    {% if not user.is_authenticated %}
+        <a href="/accounts/sign_in">
+            <button type="button" class="btn btn-info sign-in-profile-btn">
+                Sign In
+            </button>
+        </a>
+    {% else %}
+        <button type="button" class="btn btn-info sign-in-profile-btn">
+            Profile
+        </button>
+    {% endif %}
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12 col-sm-12 col-12 main-section">
+    <div class="dropdown-cart">
+       <button type="button" class="btn btn-info btn-cart" data-toggle="dropdown">
+         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger cart-span _count">0</span>
+       </button>
+        {% if user.is_authenticated %}
+          <div class="dropdown-menu">
+             <div class="row total-header-section">
+                <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                    <p class="cart-text">Total: <span class="text-info cart-text _amount" style="color: #D519F0 !important;">0$</span></p>
+                </div>
+             </div>
+{% for order in user_orders %}
+            <div class="row cart-detail">
+                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                    <img src="/media/{{order.product.photo}}">
+                </div>
+                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                    <p>{{order.product.name}}</p>
+                    <span class="price text-info" style="color: #D519F0 !important;">{{order.product.price}}$</span>
+                </div>
+            </div>
+{% endfor %}
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
+                  <a href="/orders/" style="text-decoration:none;"><button class="btn btn-primary btn-block cart-button">Checkout</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        {% else %}
+                  <div class="dropdown-menu">
+             <div class="row total-header-section">
+                <div>
+                    <p class="cart-block">To use the shopping cart you need to login or register</p>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     {% endif %}
+    </div>
+  </div>
+</nav>
+
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/cart_display.js' %}"></script>

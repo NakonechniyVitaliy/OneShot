@@ -1,0 +1,67 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+
+{% block cart %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    {% if amount == 0 %}
+        <div class="cart_zero_div">
+            <h1 class="cart_zero_text">You haven't added any items to your cart yet</h1>
+        </div>
+    {% else %}
+    <div class="container main-cart">
+        <div class="cart-header">
+            <h2 class="cart-header-text">Cart</h2>
+        </div>
+        <div class="cart-in cart-left" id="delete-all">
+            <input type="hidden" id='order-id-all' value="{{order.id}}">
+        <a href="/orders/"><button type="submit" class="btn-detail-cart delete-all-btn" >
+            Clear  <i class="fa fa-trash-o" aria-hidden="true" style="margin-left:1vh"></i>
+        </button></a>
+        {% for order in user_orders %}
+            <div class="cart-product">
+                <div class="section-1">
+                    <img src="/media/{{order.product.photo}}" class="cart-product-photo">
+                </div>
+                <div class="section-2">
+                    <h6 class="cart-product-text">{{order.product.name}}</h6>
+                </div>
+                <div class="section-3">
+                    <h6 class="cart-product-text" style="color:#BD1EFE;">{{order.product.price}}$</h6>
+                </div>
+                <div class="section-4" id="delete-product">
+                    <input type="hidden" id='order-id' value="{{order.id}}">
+                    <a href="/orders/" class="delete-product-btn"><i class="fa fa-trash-o cart-product-text" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="cart-in cart-right">
+        <div class="cart-bill">
+            <p class="total-cart-text">Total products: <span class="_count"></span></p>
+            <p class="total-cart-text">Total price: <span class="_amount" id="_amount"></span></p>
+
+
+
+            <form action="/orders/" method="post">
+                {% csrf_token %}
+                <p>
+                    <label for="email" class="total-cart-text">
+                        Enter your email:
+                    </label>
+                    <input type="email" id="email" name="email" class="inp" required style="margin-left:2vw;">
+                    <button type="submit" id="submit" class="btn-detail-cart" style="margin-left:2vw;">
+                        Submit
+                    </button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+    <script src="{% static 'js/delete_product.js' %}"></script>
+{% endblock cart %}

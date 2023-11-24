@@ -1,0 +1,105 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+{% block store %}
+
+<h1 class="total-products">Total products - {{ products_count }}</h1>
+
+  <div class="fil">
+      <ul class="fil-div-1">
+        <li class="filter-main" data-f="all">Category ({{ category_count }})</li><br>
+        <li class="filter-li" data-f="all">All</li><br>
+        <li class="filter-li" data-f="Jacket">Jacket</li><br>
+        <li class="filter-li" data-f="Coat">Coat</li><br>
+        <li class="filter-li" data-f="Vest">Vest</li><br>
+        <li class="filter-li" data-f="Hoodie">Hoodie</li><br>
+        <li class="filter-li" data-f="Pants">Pants</li><br>
+        <li class="filter-li" data-f="Sweater">Sweater</li><br>
+      </ul>
+      <ul>
+        <li class="filter-main" data-f="all">Producer ({{ producer_count }})</li><br>
+        <li class="filter-li" data-f="all">All</li><br>
+        <li class="filter-li" data-f="InLig">InLig</li><br>
+        <li class="filter-li" data-f="K-on">K-on</li><br>
+        <li class="filter-li" data-f="CyberS">CyberS</li><br>
+      </ul>
+  </div>
+
+
+
+
+  <div class="container products_container">
+    <div class="row product_card">
+        {% for product in page_obj %}
+            <div class="col-md-3 {{product.category}} category_box {{product.producer}} parent-div-add-btn element-animation">
+              <div class="wsk-cp-product">
+                <div class="wsk-cp-img">
+                  <img src="/media/{{product.photo}}" alt="" class="img-responsive" />
+                </div>
+                <div class="wsk-cp-text">
+                  <div class="category">
+                    <span>{{product.category}}</span>
+                  </div>
+                  <div class="producer">Producer - <b>{{product.producer}}</b></div>
+                  <div class="title-product">
+                    <h3>{{product.name}}</h3>
+                  </div>
+                  <div class="description-prod">
+                    <p>{{product.about}}</p>
+                  </div>
+                  <a href="/catalog/detail/{{ product.id }}"  class="btn-detail-shop">Detail</a>
+                  <div class="card-footer">
+                    <div class="wcf-left"><span class="price">{{product.price}}$</span></div>
+                    <div class="wcf-right">
+                      <input type="hidden" value="{{product.price}}">
+                      <input type="hidden" value="{{product.id}}">
+                      <a href="#"  class="add-to-cart-btn btn-add-catalog">to cart</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+  </div>
+
+
+
+<div class="container-pag">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li>
+      <a href="?page={{ page_obj.previous_page_number }}">Prev</a>
+    </li>
+    {% endif %}
+    <li>
+      <a href="?page=1">1</a>
+    </li>
+    <li>
+      <a href="?page=2">2</a>
+    </li>
+    <li>
+      <a href="?page=3">3</a>
+    </li>
+    <li>
+      <a href="?page=4">4</a>
+    </li>
+    <li>
+      <a href="?page=5">5</a>
+    </li>
+    {% if page_obj.has_next %}
+    <li>
+      <a href="?page={{ page_obj.paginator.num_pages }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+
+
+  <script src="{% static 'js/cart.js' %}"></script>
+  <script src="{% static 'js/filter_category.js' %}"></script>
+  <script src="{% static 'js/filter_producer.js' %}"></script>
+
+{% endblock store %}
